@@ -33,7 +33,7 @@ public class WebScraper {
     }
 
     public static String[] getData(String url) {
-        String[] arr = new String[5];
+        String[] arr = new String[6];
         try {
             Document doc = Jsoup.connect(url).get();
 
@@ -45,17 +45,19 @@ public class WebScraper {
                         case "Power:":
                             arr[0] = words[i + 1];
                             break;
-                        case "Weight:":
+                        case "Torque:":
                             arr[1] = words[i + 1];
+                        case "Weight:":
+                            arr[2] = words[i + 1];
                             break;
                         case "60":
-                            arr[2] = words[i + 2];
-                            break;
-                        case "5–60":
                             arr[3] = words[i + 2];
                             break;
+                        case "5–60":
+                            arr[4] = words[i + 2];
+                            break;
                         case "1/4-Mile:":
-                            arr[4] = words[i + 1];
+                            arr[5] = words[i + 1];
                             break;
                     }
                 }
