@@ -36,8 +36,13 @@ public class WebScraper {
         String[] arr = new String[6];
         try {
             Document doc = Jsoup.connect(url).get();
+            String div = "div.specs-content";
+            if (doc.select(div).isEmpty()) {
+//                System.out.println("DNE");
+                div = "div.css-hvcer9 e164kvlk2";
+            }
 
-            for (Element row : doc.select("div.specs-content")) {
+            for (Element row : doc.select(div)) {
                 String line = row.text();
                 String[] words = line.split(" ");
                 for (int i = 0; i < words.length; i++) {
@@ -45,6 +50,8 @@ public class WebScraper {
                         case "Power:":
                             arr[0] = words[i + 1];
                             break;
+                        case "Power":
+                            arr[0] = words[i + 1];
                         case "Torque:":
                             arr[1] = words[i + 1];
                         case "Weight:":
@@ -59,6 +66,8 @@ public class WebScraper {
                         case "1/4-Mile:":
                             arr[5] = words[i + 1];
                             break;
+                        case "1/4":
+                            arr[5] = words[i + 2];
                     }
                 }
             }
